@@ -12,3 +12,6 @@
 *.ilk
 *.recipe
 *.log
+*.opendb
+*.db-wal
+*.db-shm
