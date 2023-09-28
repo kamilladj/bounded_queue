@@ -1,5 +1,4 @@
-#ifndef BOUNDED_BC_QUEUE
-#define BOUNDED_BC_QUEUE
+#pragma once
 
 #include <atomic>
 #include <optional>
@@ -57,4 +56,3 @@ std::optional<T> bounded_queue_spsc<T>::pop()
 	}
 }
 
-#endif BOUNDED_BC_QUEUE

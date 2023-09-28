@@ -1,5 +1,4 @@
-#ifndef CIRCULAR_QUEUE
-#define CIRCULAR_QUEUE
+#pragma once
 
 #include <stdexcept>
 #include "my_aligned_storage.hpp"
@@ -46,13 +45,11 @@ public:
 	bool full() const
 	{
 		return size() == capacity();
-		//return m_front == inc(m_rear);
 	}
 
 	bool empty() const
 	{
 		return !size();
-		//return m_front == m_rear;
 	}
 
 private:
@@ -100,5 +97,3 @@ T circular_queue<T>::pop()
 	m_front = inc(m_front);
 	return value;
 }
-
-#endif CIRCULAR_QUEUE
