@@ -1,0 +1,14 @@
+*.filters
+*.user
+*.suo
+*.db
+*.ipch
+*.obj
+*.pdb
+*.exe
+*.tlog
+*.idb
+*.txt
+*.ilk
+*.recipe
+*.log
