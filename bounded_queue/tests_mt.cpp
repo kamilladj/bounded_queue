@@ -6,7 +6,7 @@
 #include <vector>
 
 
-TEST_CASE("BOUNDED MPMC QUEUE behaviour", "[threads]")
+TEST_CASE("BOUNDED MULTITHREADED QUEUE behaviour", "[threads]")
 {
 	SECTION("Single producer - single consumer")
 	{
