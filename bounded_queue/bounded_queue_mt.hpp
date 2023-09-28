@@ -13,7 +13,7 @@ public:
 	bounded_queue_mt(size_t cap = 5)
 	    : m_mutex()
 		, m_cond_var()
-		, m_customers(cap)
+		, m_queue(cap)
 	{}
 
 	bounded_queue_mt(const bounded_queue_mt&) = delete;
@@ -28,7 +28,7 @@ private:
 	mutable std::mutex		m_mutex;
 	std::condition_variable m_cond_var;
 
-	circular_queue<T>		m_customers;
+	circular_queue<T>		m_queue;
 
 };
 
@@ -38,9 +38,9 @@ bool bounded_queue_mt<T>::push(T val)
 {
 	std::lock_guard<std::mutex> lk(m_mutex);
 
-	if (m_customers.push(val))
+	if (m_queue.push(val))
 	{
-		m_cond_var.notify_one(); //waking up the barber
+		m_cond_var.notify_one();
 		return true;
 	}
 
@@ -52,8 +52,8 @@ template<typename T>
 T bounded_queue_mt<T>::pop()
 {
 	std::unique_lock<std::mutex> lk(m_mutex);
-	m_cond_var.wait(lk, [this] {return !m_customers.empty(); });
+	m_cond_var.wait(lk, [this] {return !m_queue.empty(); });
 	
-	return m_customers.pop();
+	return m_queue.pop();
 }
 
