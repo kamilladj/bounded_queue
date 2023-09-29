@@ -11,8 +11,8 @@ class bounded_queue_spsc
 public:
 
 	explicit bounded_queue_spsc(size_t cap = 5)
-		: m_queue(cap)
-		, m_size(0)
+		: m_size(0)
+		, m_queue(cap)
 	{}
 
 	bounded_queue_spsc(const bounded_queue_spsc&) = delete;
@@ -24,8 +24,9 @@ public:
 
 private:
 
-	circular_queue<T>		m_queue;
 	std::atomic<size_t>     m_size;
+
+	circular_queue<T>		m_queue;
 };
 
 
