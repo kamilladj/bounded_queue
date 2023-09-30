@@ -54,6 +54,23 @@ TEST_CASE("BOUNDED MULTITHREADED QUEUE behaviour", "[threads]")
 		REQUIRE(vec[1] == 2);
 	}
 
+	SECTION("Two producers - two consumers")
+	{
+		bounded_queue_mt<int> q;
+		std::vector<int> vec;
+		std::thread t1([&] { q.push(1); });
+		std::thread t2([&] { q.push(2); });
+		std::thread t3([&] { vec.push_back(q.pop()); });
+		std::thread t4([&] { vec.push_back(q.pop()); });
+		t1.join();
+		t2.join();
+		t3.join();
+		t4.join();
+
+		REQUIRE(std::find(vec.begin(), vec.end(), 1) != vec.end());
+		REQUIRE(std::find(vec.begin(), vec.end(), 2) != vec.end());
+	}
+
 	SECTION("More elements")
 	{
 		bounded_queue_mt<int> q(7);
